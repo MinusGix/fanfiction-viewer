@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title><%-title%></title>
+	<link href="/styles.css" rel="stylesheet">
+</head>
+
+<body>
+	<div id="titlebar">
+		<p id="storytype"><%- storytype%></p>
+		<p id="title"><%- storytitle%></p>
+		<p id="author"><%- author%></p>
+		<p id="description"><%- description%></p>
+		<p id="extras"><%- extras%></p>
+	</div>
+	<div id="browsebar">
+		<div>
+		Font: 
+			<select id="font" class="select">
+				<option>sans-serif</option>
+				<option>serif</option>
+				<option>monospace</option>
+			</select>
+		</div>
+		<div>
+			Font-Size: <input type="number" id="size" defaultvalue="30" min="1">
+		</div>
+		<br>
+		<div>
+		Chapter: 
+			<select id="chapter" class="select">
+				<% chapters.map(function(a, b, c){ %>
+					<option value="<%-(b+1)%>"><%-a%></option>
+				<% }); %>
+			</select>
+		</div>
+	</div>
+	<div id="text">
+		<% text.map(function(a, b){ %>
+			<p><%-a%></p>
+		<% }); %>
+	</div>
+	<a href="#next" class="button">Next Chapter</a>
+	<a href="#back" class="button">Back A Chapter</a>
+</body>
+<script src="/jquery.js"></script>
+<script>
+	var text = location.pathname,
+		path = 1;
+
+	//if theres a / at the end
+	if(text.substring(text.length,text.length-1) === '/'){
+		text = text.substring(0, text.length-1);
+	}
+
+	for(var i = text.length; i > 0; i--){
+		if(text.substring(i,i-1) === '/'){
+			path = text.substring( i,text.length );
+			break;
+		}
+	}
+	path = Number(path);
+	if(path === 1){
+		$('a.button[href="#back"]').remove();
+		$('a.button[href="#next"]').attr('href', location.href.split('').reverse().join('').replace((path+'').split('').reverse().join(''), ((path+1)+'').split('').reverse().join('')).split('').reverse().join(''))
+	}else if(path === $('#chapter > option').length){
+		$('a.button[href="#back"]').attr('href', location.href.split('').reverse().join('').replace((path+'').split('').reverse().join(''), ((path-1)+'').split('').reverse().join('')).split('').reverse().join(''))
+		$('a.button[href="#next"]').remove();
+	}else{
+		$('a.button[href="#back"]').attr('href', location.href.split('').reverse().join('').replace((path+'').split('').reverse().join(''), ((path-1)+'').split('').reverse().join('')).split('').reverse().join(''))
+		$('a.button[href="#next"]').attr('href', location.href.split('').reverse().join('').replace((path+'').split('').reverse().join(''), ((path+1)+'').split('').reverse().join('')).split('').reverse().join(''))
+	}
+	$(document).on('change', '#font', function(){
+		$('div#text').css('font-family', $(this).val());
+	});
+	$(document).on('change', '#size', function(){
+		$('div#text').css('font-size', $(this).val() + 'px');
+	});
+	$('#chapter > option[value="' + path + '"]').attr('selected', true);
+	$(document).on('change', '#chapter', function(){
+		location.href = location.href.split('').reverse().join('').replace((path+'').split('').reverse().join(''), (($(this).val())+'').split('').reverse().join('')).split('').reverse().join('')
+	});
+	$('#size').val('30')
+	</script>
+</html>

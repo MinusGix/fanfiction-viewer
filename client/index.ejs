@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <link href="styles.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="form">
+        <p>Story ID:</p>
+        <input type="text" id="id" placeholder="Story ID">
+        <break></break>
+        <p>Chapter:</p>
+        <input type="number" id="chapter" placeholder="Chapter" min="1" value="1">
+        <break></break>
+        <button id="goto">Go to story</button>
+    </div>
+</body>
+<script src="jquery.js"></script>
+<script>
+    $('#form > button#goto').on('click', function(){
+        location.href = location.protocol + '//' + location.host + '/url/fanfiction/' + $('#id').val() + '/' + $('#chapter').val() + '/';
+    });
+</script>
+</html>

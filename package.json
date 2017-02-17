@@ -1,0 +1,13 @@
+{
+    "name": "fanfiction-viewer",
+    "version": "1.0.0",
+    "description": "To View Fanfiction",
+    "scripts": {},
+    "keywords": [],
+    "author": "MinusGix",
+    "dependencies": {
+        "ejs": "^2.5.5",
+        "express": "^4.14.1",
+        "jsdom": "^9.11.0"
+    }
+}
