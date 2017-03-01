@@ -5,6 +5,7 @@ Currently not too useful since it only supports fanfiction.net.
 
 ## Supports:
 * Fanfiction.net
+* Archiveofourown (Could be better in code, and not perfect but it works.)
 * More To Come
 
 ## Installing  

@@ -9,11 +9,16 @@
 
 <body>
     <div id="form">
+        <p>Type:</p>
+        <select name="" id="type">
+            <option value="fanfiction">fanfiction.net</option>
+            <option value="ao3">AO3</option>
+        </select>
         <p>Story ID:</p>
         <input type="text" id="id" placeholder="Story ID">
         <break></break>
         <p>Chapter:</p>
-        <input type="number" id="chapter" placeholder="Chapter" min="1" value="1">
+        <input type="text" id="chapter" placeholder="Chapter ID">
         <break></break>
         <button id="goto">Go to story</button>
     </div>
@@ -21,7 +26,7 @@
 <script src="jquery.js"></script>
 <script>
     $('#form > button#goto').on('click', function(){
-        location.href = location.protocol + '//' + location.host + '/url/fanfiction/' + $('#id').val() + '/' + $('#chapter').val() + '/';
+        location.href = `${location.protocol}//${location.host}/url/${$('#type').val()}/${$('#id').val()}/${$('#chapter').val()}/`;
     });
 </script>
 </html>
